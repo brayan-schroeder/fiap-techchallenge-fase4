@@ -1,0 +1,65 @@
+
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: FIAP Tech Challenge - Critical feedback notification
+
+Parameters:
+  FeedbackTableStreamArn:
+    Type: String
+    Description: ARN do DynamoDB Stream da tabela fiap-feedbacks
+
+  SenderEmail:
+    Type: String
+    Description: E-mail remetente verificado no SES
+
+  AdminEmail:
+    Type: String
+    Description: E-mail do administrador que receberá os alertas
+
+Resources:
+  CriticalNotificationFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: fiap-critical-notification
+      CodeUri: ../notification-function/
+      Handler: br.com.fiap.notification.StreamHandler
+      Runtime: java21
+      Architectures:
+        - x86_64
+      MemorySize: 256
+      Timeout: 30
+
+      Environment:
+        Variables:
+          SENDER_EMAIL: !Ref SenderEmail
+          ADMIN_EMAIL: !Ref AdminEmail
+
+      Policies:
+        - Statement:
+            - Effect: Allow
+              Action:
+                - dynamodb:DescribeStream
+                - dynamodb:GetRecords
+                - dynamodb:GetShardIterator
+                - dynamodb:ListStreams
+              Resource: !Ref FeedbackTableStreamArn
+
+            - Effect: Allow
+              Action:
+                - ses:SendEmail
+              Resource: "*"
+
+      Events:
+        FeedbackStream:
+          Type: DynamoDB
+          Properties:
+            Stream: !Ref FeedbackTableStreamArn
+            StartingPosition: LATEST
+            BatchSize: 1
+            MaximumRetryAttempts: 3
+            Enabled: true
+
+Outputs:
+  CriticalNotificationFunctionArn:
+    Description: ARN da Lambda de notificações críticas
+    Value: !GetAtt CriticalNotificationFunction.Arn
