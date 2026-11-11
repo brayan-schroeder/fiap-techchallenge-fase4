@@ -19,12 +19,10 @@ Resources:
       PackageType: Zip
       CodeUri: ../feedback-api/
       Handler: br.com.fiap.feedback.StreamLambdaHandler
+      Role: arn:aws:iam::263429642056:role/fiap-feedback-api-execution-role
       Environment:
         Variables:
           TABLE_NAME: fiap-feedbacks
-      Policies:
-        - DynamoDBCrudPolicy:
-            TableName: fiap-feedbacks
       Events:
         Api:
           Type: HttpApi
