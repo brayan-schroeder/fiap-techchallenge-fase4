@@ -1,0 +1,57 @@
+
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: Feedback API - FIAP Tech Challenge Fase 4
+
+Globals:
+  Function:
+    Runtime: java21
+    MemorySize: 1024
+    Timeout: 30
+    Architectures:
+      - x86_64
+
+Resources:
+  FeedbackApiFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: fiap-feedback-api
+      PackageType: Zip
+      CodeUri: ../feedback-api/target/feedback-0.0.1-SNAPSHOT.jar
+      Handler: br.com.fiap.feedback.StreamLambdaHandler
+      Environment:
+        Variables:
+          TABLE_NAME: fiap-feedbacks
+      Policies:
+        - DynamoDBCrudPolicy:
+            TableName: fiap-feedbacks
+      Events:
+        Api:
+          Type: HttpApi
+          Properties:
+            Path: /{proxy+}
+            Method: ANY
+
+  FeedbackApiRoot:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: fiap-feedback-api-root
+      Runtime: java21
+      MemorySize: 1024
+      Timeout: 30
+      CodeUri: ../feedback-api/target/feedback-0.0.1-SNAPSHOT.jar
+      Handler: br.com.fiap.feedback.StreamLambdaHandler
+      Policies:
+        - DynamoDBCrudPolicy:
+            TableName: fiap-feedbacks
+      Events:
+        Root:
+          Type: HttpApi
+          Properties:
+            Path: /
+            Method: ANY
+
+Outputs:
+  FeedbackApiUrl:
+    Description: URL da Feedback API
+    Value: !Sub "https://${ServerlessHttpApi}.execute-api.${AWS::Region}.amazonaws.com"
