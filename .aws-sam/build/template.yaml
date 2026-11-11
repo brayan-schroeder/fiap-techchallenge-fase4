@@ -32,7 +32,6 @@ Resources:
             Ref: SenderEmail
           ADMIN_EMAIL:
             Ref: AdminEmail
-          AWS_REGION: us-east-2
       Events:
         WeeklySchedule:
           Type: Schedule
@@ -40,7 +39,7 @@ Resources:
             Name: fiap-weekly-report-monday
             Description: Generate weekly feedback report every Monday
             Schedule: cron(0 12 ? * MON *)
-            Enabled: true
+            Enabled: false
     Metadata:
       SamResourceId: WeeklyReportFunction
 Outputs:
