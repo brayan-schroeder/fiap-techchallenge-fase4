@@ -5,9 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="78b60ce2-8f6b-424e-a381-04d8fee918b3" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/weekly-report-function/pom.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/weekly-report-function/src/main/java/br/com/fiap/report/WeeklyReportHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/infrastructure/weekly-report-template.yaml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -38,11 +36,12 @@
     "ModuleVcsDetector.initialDetectionPerformed": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "git-widget-placeholder": "main",
-    "last_opened_file_path": "D:/Repositories/fiap/fiap-techchallenge-fase4/weekly-report-function"
+    "last_opened_file_path": "D:/Repositories/fiap/fiap-techchallenge-fase4/infrastructure"
   }
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\Repositories\fiap\fiap-techchallenge-fase4\infrastructure" />
       <recent name="D:\Repositories\fiap\fiap-techchallenge-fase4\weekly-report-function" />
       <recent name="D:\Repositories\fiap\fiap-techchallenge-fase4\notification-function" />
     </key>

@@ -1,0 +1,53 @@
+
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: FIAP Tech Challenge - Weekly feedback report
+
+Parameters:
+  SenderEmail:
+    Type: String
+    Description: E-mail remetente verificado no SES
+
+  AdminEmail:
+    Type: String
+    Description: E-mail administrador que receberá o relatório
+
+  WeeklyReportExecutionRoleArn:
+    Type: String
+    Default: arn:aws:iam::263429642056:role/fiap-weekly-report-execution-role
+    Description: ARN da role de execução da Lambda
+
+Resources:
+  WeeklyReportFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: fiap-weekly-report
+      CodeUri: ../weekly-report-function/
+      Handler: br.com.fiap.report.WeeklyReportHandler
+      Runtime: java21
+      Architectures:
+        - x86_64
+      MemorySize: 256
+      Timeout: 60
+
+      Role: !Ref WeeklyReportExecutionRoleArn
+
+      Environment:
+        Variables:
+          SENDER_EMAIL: !Ref SenderEmail
+          ADMIN_EMAIL: !Ref AdminEmail
+          AWS_REGION: us-east-2
+
+      Events:
+        WeeklySchedule:
+          Type: Schedule
+          Properties:
+            Name: fiap-weekly-report-monday
+            Description: Generate weekly feedback report every Monday
+            Schedule: cron(0 12 ? * MON *)
+            Enabled: true
+
+Outputs:
+  WeeklyReportFunctionArn:
+    Description: ARN da Lambda de relatório semanal
+    Value: !GetAtt WeeklyReportFunction.Arn

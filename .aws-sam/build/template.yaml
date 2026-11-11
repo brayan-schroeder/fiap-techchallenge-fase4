@@ -1,56 +1,52 @@
 AWSTemplateFormatVersion: '2010-09-09'
 Transform: AWS::Serverless-2016-10-31
-Description: FIAP Tech Challenge - Critical feedback notification
+Description: FIAP Tech Challenge - Weekly feedback report
 Parameters:
-  FeedbackTableStreamArn:
-    Type: String
-    Description: ARN do DynamoDB Stream da tabela fiap-feedbacks
   SenderEmail:
     Type: String
     Description: E-mail remetente verificado no SES
   AdminEmail:
     Type: String
-    Description: "E-mail do administrador que receber\xE1 os alertas"
-  NotificationExecutionRoleArn:
+    Description: "E-mail administrador que receber\xE1 o relat\xF3rio"
+  WeeklyReportExecutionRoleArn:
     Type: String
-    Default: arn:aws:iam::263429642056:role/fiap-critical-notification-execution-role
+    Default: arn:aws:iam::263429642056:role/fiap-weekly-report-execution-role
     Description: "ARN da role de execu\xE7\xE3o da Lambda"
 Resources:
-  CriticalNotificationFunction:
+  WeeklyReportFunction:
     Type: AWS::Serverless::Function
     Properties:
-      FunctionName: fiap-critical-notification
-      CodeUri: CriticalNotificationFunction
-      Handler: br.com.fiap.notification.StreamHandler
+      FunctionName: fiap-weekly-report
+      CodeUri: WeeklyReportFunction
+      Handler: br.com.fiap.report.WeeklyReportHandler
       Runtime: java21
       Architectures:
       - x86_64
       MemorySize: 256
-      Timeout: 30
+      Timeout: 60
       Role:
-        Ref: NotificationExecutionRoleArn
+        Ref: WeeklyReportExecutionRoleArn
       Environment:
         Variables:
           SENDER_EMAIL:
             Ref: SenderEmail
           ADMIN_EMAIL:
             Ref: AdminEmail
+          AWS_REGION: us-east-2
       Events:
-        FeedbackStream:
-          Type: DynamoDB
+        WeeklySchedule:
+          Type: Schedule
           Properties:
-            Stream:
-              Ref: FeedbackTableStreamArn
-            StartingPosition: LATEST
-            BatchSize: 1
-            MaximumRetryAttempts: 3
+            Name: fiap-weekly-report-monday
+            Description: Generate weekly feedback report every Monday
+            Schedule: cron(0 12 ? * MON *)
             Enabled: true
     Metadata:
-      SamResourceId: CriticalNotificationFunction
+      SamResourceId: WeeklyReportFunction
 Outputs:
-  CriticalNotificationFunctionArn:
-    Description: "ARN da Lambda de notifica\xE7\xF5es cr\xEDticas"
+  WeeklyReportFunctionArn:
+    Description: "ARN da Lambda de relat\xF3rio semanal"
     Value:
       Fn::GetAtt:
-      - CriticalNotificationFunction
+      - WeeklyReportFunction
       - Arn
