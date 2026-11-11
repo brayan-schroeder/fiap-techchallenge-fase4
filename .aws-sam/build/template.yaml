@@ -11,6 +11,10 @@ Parameters:
   AdminEmail:
     Type: String
     Description: "E-mail do administrador que receber\xE1 os alertas"
+  NotificationExecutionRoleArn:
+    Type: String
+    Default: arn:aws:iam::263429642056:role/fiap-critical-notification-execution-role
+    Description: "ARN da role de execu\xE7\xE3o da Lambda"
 Resources:
   CriticalNotificationFunction:
     Type: AWS::Serverless::Function
@@ -23,26 +27,14 @@ Resources:
       - x86_64
       MemorySize: 256
       Timeout: 30
+      Role:
+        Ref: NotificationExecutionRoleArn
       Environment:
         Variables:
           SENDER_EMAIL:
             Ref: SenderEmail
           ADMIN_EMAIL:
             Ref: AdminEmail
-      Policies:
-      - Statement:
-        - Effect: Allow
-          Action:
-          - dynamodb:DescribeStream
-          - dynamodb:GetRecords
-          - dynamodb:GetShardIterator
-          - dynamodb:ListStreams
-          Resource:
-            Ref: FeedbackTableStreamArn
-        - Effect: Allow
-          Action:
-          - ses:SendEmail
-          Resource: '*'
       Events:
         FeedbackStream:
           Type: DynamoDB
