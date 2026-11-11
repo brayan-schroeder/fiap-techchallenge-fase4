@@ -44,7 +44,7 @@ Resources:
             Name: fiap-weekly-report-monday
             Description: Generate weekly feedback report every Monday
             Schedule: cron(0 12 ? * MON *)
-            Enabled: false
+            Enabled: true
 
 Outputs:
   WeeklyReportFunctionArn:
