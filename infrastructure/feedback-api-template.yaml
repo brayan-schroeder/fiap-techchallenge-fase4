@@ -17,7 +17,7 @@ Resources:
     Properties:
       FunctionName: fiap-feedback-api
       PackageType: Zip
-      CodeUri: ../feedback-api/target/feedback-0.0.1-SNAPSHOT.jar
+      CodeUri: ../feedback-api/
       Handler: br.com.fiap.feedback.StreamLambdaHandler
       Environment:
         Variables:
@@ -31,20 +31,6 @@ Resources:
           Properties:
             Path: /{proxy+}
             Method: ANY
-
-  FeedbackApiRoot:
-    Type: AWS::Serverless::Function
-    Properties:
-      FunctionName: fiap-feedback-api-root
-      Runtime: java21
-      MemorySize: 1024
-      Timeout: 30
-      CodeUri: ../feedback-api/target/feedback-0.0.1-SNAPSHOT.jar
-      Handler: br.com.fiap.feedback.StreamLambdaHandler
-      Policies:
-        - DynamoDBCrudPolicy:
-            TableName: fiap-feedbacks
-      Events:
         Root:
           Type: HttpApi
           Properties:
