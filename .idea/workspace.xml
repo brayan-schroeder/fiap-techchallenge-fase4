@@ -4,7 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="78b60ce2-8f6b-424e-a381-04d8fee918b3" name="Changes" comment="" />
+    <list default="true" id="78b60ce2-8f6b-424e-a381-04d8fee918b3" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/weekly-report-function/src/main/java/br/com/fiap/report/WeeklyReportHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/weekly-report-function/src/main/java/br/com/fiap/report/WeeklyReportHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/weekly-report-function/target/classes/br/com/fiap/report/WeeklyReportHandler.class" beforeDir="false" afterPath="$PROJECT_DIR$/weekly-report-function/target/classes/br/com/fiap/report/WeeklyReportHandler.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/weekly-report-function/target/maven-archiver/pom.properties" beforeDir="false" afterPath="$PROJECT_DIR$/weekly-report-function/target/maven-archiver/pom.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/weekly-report-function/target/original-weekly-report-function-1.0.0.jar" beforeDir="false" afterPath="$PROJECT_DIR$/weekly-report-function/target/original-weekly-report-function-1.0.0.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/weekly-report-function/target/weekly-report-function-1.0.0.jar" beforeDir="false" afterPath="$PROJECT_DIR$/weekly-report-function/target/weekly-report-function-1.0.0.jar" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />

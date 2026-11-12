@@ -6,6 +6,7 @@ import br.com.fiap.feedback.model.Feedback;
 import br.com.fiap.feedback.service.FeedbackService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;

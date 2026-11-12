@@ -26,6 +26,7 @@ import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Locale;
@@ -51,6 +52,9 @@ public class WeeklyReportHandler
 
     private static final DateTimeFormatter DATE_FORMAT =
             DateTimeFormatter.ofPattern("dd/MM/yyyy");
+
+    private static final DateTimeFormatter DATE_TIME_FORMAT =
+            DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
 
     private static final List<String> URGENCIAS =
             List.of("CRITICA", "MEDIA", "BAIXA");
@@ -92,6 +96,9 @@ public class WeeklyReportHandler
 
         Map<LocalDate, Integer> dailyCounts =
                 new TreeMap<>();
+
+        List<String> feedbackDetails =
+                new ArrayList<>();
 
         URGENCIAS.forEach(
                 urgency -> urgencyCounts.put(urgency, 0)
@@ -165,6 +172,24 @@ public class WeeklyReportHandler
                             .atZone(TIME_ZONE)
                             .toLocalDate();
 
+                    String descricao = item.get("descricao").s();
+
+                    String dataEnvio = Instant
+                            .ofEpochMilli(timestamp)
+                            .atZone(TIME_ZONE)
+                            .format(DATE_TIME_FORMAT);
+
+                    feedbackDetails.add("""
+                            Descrição: %s
+                            Urgência: %s
+                            Data de envio: %s
+
+                            """.formatted(
+                            descricao,
+                            urgency,
+                            dataEnvio
+                    ));
+
                     urgencyCounts.merge(
                             urgency, 1, Integer::sum
                     );
@@ -182,11 +207,11 @@ public class WeeklyReportHandler
         BigDecimal average = totalRatings == 0
                 ? BigDecimal.ZERO
                 : BigDecimal.valueOf(totalScore)
-                        .divide(
-                                BigDecimal.valueOf(totalRatings),
-                                2,
-                                RoundingMode.HALF_UP
-                        );
+                .divide(
+                        BigDecimal.valueOf(totalRatings),
+                        2,
+                        RoundingMode.HALF_UP
+                );
 
         String report = buildReport(
                 start,
@@ -194,7 +219,8 @@ public class WeeklyReportHandler
                 totalRatings,
                 average,
                 urgencyCounts,
-                dailyCounts
+                dailyCounts,
+                feedbackDetails
         );
 
         sendEmail(report);
@@ -214,7 +240,8 @@ public class WeeklyReportHandler
             long totalRatings,
             BigDecimal average,
             Map<String, Integer> urgencyCounts,
-            Map<LocalDate, Integer> dailyCounts
+            Map<LocalDate, Integer> dailyCounts,
+            List<String> feedbackDetails
     ) {
 
         StringBuilder report = new StringBuilder();
@@ -259,6 +286,24 @@ public class WeeklyReportHandler
                         )
                 )
         );
+
+        report.append("""
+
+                DETALHAMENTO DAS AVALIAÇÕES
+                ---------------------------------
+
+                """);
+
+        if (feedbackDetails.isEmpty()) {
+            report.append(
+                    "Nenhuma avaliação encontrada no período.\n"
+            );
+        } else {
+            for (int i = 0; i < feedbackDetails.size(); i++) {
+                report.append("%d.\n".formatted(i + 1));
+                report.append(feedbackDetails.get(i));
+            }
+        }
 
         report.append("""
 
