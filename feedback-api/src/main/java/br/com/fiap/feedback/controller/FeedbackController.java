@@ -30,4 +30,9 @@ public class FeedbackController {
     public List<Feedback> listarTodos() {
         return service.listarTodos();
     }
+
+    @GetMapping("/teste-erro-500")
+    public void testarErro500() {
+        throw new RuntimeException("Erro 500 proposital para teste do CloudWatch");
+    }
 }

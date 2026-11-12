@@ -53,6 +53,8 @@ Resources:
       Threshold: 1
       ComparisonOperator: GreaterThanOrEqualToThreshold
       TreatMissingData: notBreaching
+      AlarmActions:
+        - arn:aws:sns:us-east-2:263429642056:fiap-feedback-api-alerts
 
 Outputs:
   FeedbackApiUrl:
