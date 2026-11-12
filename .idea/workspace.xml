@@ -5,9 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="78b60ce2-8f6b-424e-a381-04d8fee918b3" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.github/workflows/aws-credentials-test.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.aws-sam/build/FeedbackApiFunction/br/com/fiap/feedback/controller/FeedbackController.class" beforeDir="false" afterPath="$PROJECT_DIR$/.aws-sam/build/FeedbackApiFunction/br/com/fiap/feedback/controller/FeedbackController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.aws-sam/build/template.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/.aws-sam/build/template.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.github/workflows/deploy.yml" beforeDir="false" afterPath="$PROJECT_DIR$/.github/workflows/deploy.yml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/infrastructure/feedback-api-template.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/infrastructure/feedback-api-template.yaml" afterDir="false" />
     </list>
@@ -26,23 +24,23 @@
       </MavenGeneralSettings>
     </option>
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "customColor": "",
-  "associatedIndex": 6
-}]]></component>
+  <component name="ProjectColorInfo">{
+  &quot;customColor&quot;: &quot;&quot;,
+  &quot;associatedIndex&quot;: 6
+}</component>
   <component name="ProjectId" id="3Lyc1jCK0EfwJHMlfJK8s8XXVX2" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ModuleVcsDetector.initialDetectionPerformed": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "main",
-    "last_opened_file_path": "D:/Repositories/fiap/fiap-techchallenge-fase4/infrastructure"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/Repositories/fiap/fiap-techchallenge-fase4/infrastructure&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="D:\Repositories\fiap\fiap-techchallenge-fase4\infrastructure" />

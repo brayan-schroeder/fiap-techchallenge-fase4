@@ -3,6 +3,12 @@ AWSTemplateFormatVersion: '2010-09-09'
 Transform: AWS::Serverless-2016-10-31
 Description: Feedback API - FIAP Tech Challenge Fase 4
 
+Parameters:
+  ApiKey:
+    Type: String
+    NoEcho: true
+    Description: Chave secreta para acesso à Feedback API
+
 Globals:
   Function:
     Runtime: java21
@@ -23,6 +29,7 @@ Resources:
       Environment:
         Variables:
           TABLE_NAME: fiap-feedbacks
+          API_KEY: !Ref ApiKey
       Events:
         Api:
           Type: HttpApi

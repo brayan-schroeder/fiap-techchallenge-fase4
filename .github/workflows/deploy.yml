@@ -46,12 +46,15 @@ jobs:
             --build-dir .aws-sam/build-feedback-api
 
       - name: Deploy Feedback API
+        env:
+          API_KEY: ${{ secrets.API_KEY }}
         run: |
           sam deploy \
             --template-file .aws-sam/build-feedback-api/template.yaml \
             --stack-name fiap-techchallenge-fase4-feedback-api \
             --region us-east-2 \
             --s3-bucket fiap-techchallenge-artifacts-263429642056-us-east-2 \
+            --parameter-overrides "ApiKey=$API_KEY" \
             --no-confirm-changeset \
             --no-fail-on-empty-changeset
 
