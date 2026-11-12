@@ -181,11 +181,13 @@ public class WeeklyReportHandler
 
                     feedbackDetails.add("""
                             Descrição: %s
+                            Nota: %d/10
                             Urgência: %s
                             Data de envio: %s
 
                             """.formatted(
                             descricao,
+                            nota,
                             urgency,
                             dataEnvio
                     ));
