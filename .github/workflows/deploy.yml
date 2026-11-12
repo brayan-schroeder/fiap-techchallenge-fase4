@@ -41,6 +41,9 @@ jobs:
       # Feedback API
       - name: Build Feedback API
         run: |
+          cd feedback-api
+          mvn clean package -e
+          cd ..
           sam build \
             --template-file infrastructure/feedback-api-template.yaml \
             --build-dir .aws-sam/build-feedback-api
