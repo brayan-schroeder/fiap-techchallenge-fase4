@@ -34,6 +34,25 @@ Resources:
           Properties:
             Path: /
             Method: ANY
+  FeedbackApi5xxAlarm:
+    Type: AWS::CloudWatch::Alarm
+    Properties:
+      AlarmName: fiap-feedback-api-5xx-errors
+      AlarmDescription: Detecta erros 5xx na Feedback API
+      Namespace: AWS/ApiGateway
+      MetricName: 5xx
+      Dimensions:
+        - Name: ApiId
+          Value: ns7thjib48
+        - Name: Stage
+          Value: '$default'
+      Statistic: Sum
+      Period: 60
+      EvaluationPeriods: 1
+      DatapointsToAlarm: 1
+      Threshold: 1
+      ComparisonOperator: GreaterThanOrEqualToThreshold
+      TreatMissingData: notBreaching
 
 Outputs:
   FeedbackApiUrl:
