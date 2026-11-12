@@ -32,7 +32,9 @@ public class FeedbackController {
     }
 
     @GetMapping("/teste-erro-500")
-    public void testarErro500() {
-        throw new RuntimeException("Erro 500 proposital para teste do CloudWatch");
+    public ResponseEntity<String> testarErro500() {
+        return ResponseEntity
+                .status(HttpStatus.INTERNAL_SERVER_ERROR)
+                .body("Erro 500 proposital para teste do CloudWatch");
     }
 }
