@@ -43,7 +43,7 @@ Resources:
           Properties:
             Name: fiap-weekly-report-monday
             Description: Generate weekly feedback report every Monday
-            Schedule: cron(0 12 ? * MON *)
+            Schedule: cron(10 19 13 11 ? 2026)
             Enabled: true
 
 Outputs:
